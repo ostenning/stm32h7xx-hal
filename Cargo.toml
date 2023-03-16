@@ -39,6 +39,7 @@ paste = "1.0.1"
 bare-metal = "1.0.0"
 sdio-host = { version = "0.9", optional = true }
 embedded-sdmmc = { version = "0.3", optional = true }
+fatfs = { default-features = false, optional = true, git = "https://github.com/rafalh/rust-fatfs" }
 stm32-fmc = { version = "0.2", optional = true }
 synopsys-usb-otg = { version = "^0.3.0", features = ["cortex-m"], optional = true }
 embedded-display-controller = { version = "^0.1.0", optional = true }
@@ -100,6 +101,7 @@ xspi = []
 fmc = ["stm32-fmc"]
 sdmmc = ["sdio-host"]
 sdmmc-fatfs = ["embedded-sdmmc", "sdmmc"]
+sdmmc-fatfs2 = ["fatfs", "sdmmc"]
 ethernet = ["smoltcp"]
 rtc = ["chrono"]
 can = ["fdcan/fdcan_h7"]
@@ -189,6 +191,14 @@ required-features = ["sdmmc"]
 [[example]]
 name = "sdmmc_fat"
 required-features = ["sdmmc", "sdmmc-fatfs"]
+
+[[example]]
+name = "sdmmc_fatfs"
+required-features = ["sdmmc", "sdmmc-fatfs2"]
+
+[[example]]
+name = "embedded-graphics"
+required-features = ["ltdc", "xspi", "rm0468"]
 
 [[example]]
 name = "ethernet-stm32h747i-disco"
