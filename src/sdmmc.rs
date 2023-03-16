@@ -299,6 +299,8 @@ pub enum Error {
     BadClock,
     InvalidConfiguration,
     SignalingSwitchFailed,
+
+    InvalidInput,
 }
 
 #[derive(Clone, Copy, Default)]
@@ -1234,7 +1236,7 @@ macro_rules! sdmmc {
                     }
                 }
 
-                #[cfg(feature = "sdmmc-fatfs2")]
+                // #[cfg(feature = "sdmmc-fatfs2")]
                 pub fn into_fatfs_cursor(self, partition_index: u8) -> FatFsCursor<Sdmmc<$SDMMCX, SdCard>> {
                     FatFsCursor::new(self, partition_index)
                 }
@@ -1280,7 +1282,7 @@ macro_rules! sdmmc {
                 }
             }
 
-            #[cfg(feature = "sdmmc-fatfs2")]
+            // #[cfg(feature = "sdmmc-fatfs2")]
             impl SdmmcIo for Sdmmc<$SDMMCX, SdCard> {
                 fn read_block(
                     &mut self,
@@ -1299,7 +1301,7 @@ macro_rules! sdmmc {
                 }
             }
 
-            #[cfg(feature = "sdmmc-fatfs2")]
+            // #[cfg(feature = "sdmmc-fatfs2")]
             impl ::fatfs::IntoStorage<FatFsCursor<Sdmmc<$SDMMCX, SdCard>>> for Sdmmc<$SDMMCX, SdCard> {
                 fn into_storage(self) -> FatFsCursor<Sdmmc<$SDMMCX, SdCard>> {
                     self.into_fatfs_cursor(0)
@@ -1553,7 +1555,7 @@ impl<SDMMC> SdmmcBlockDevice<SDMMC> {
 // Adapted from stm32l4xx-hal
 // https://github.com/reitermarkus/stm32l4xx-hal/tree/sdmmc
 
-#[cfg(feature = "sdmmc-fatfs2")]
+// #[cfg(feature = "sdmmc-fatfs2")]
 mod fatfs2 {
     use super::*;
     use core::slice;
@@ -1861,5 +1863,5 @@ mod fatfs2 {
     }
 }
 
-#[cfg(feature = "sdmmc-fatfs2")]
+// #[cfg(feature = "sdmmc-fatfs2")]
 pub use fatfs2::*;
